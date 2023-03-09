@@ -5,6 +5,13 @@
  */
 package mini.proyecto;
 
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.text.ParseException;
+import static mini.proyecto.curso_crear.Cerrar_BD;
+
 /**
  *
  * @author PC01
@@ -117,11 +124,7 @@ public class curso_eliminar extends javax.swing.JFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
         ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
-        try {
-            Buscar_EstudianteID(BaseD);
-        } catch (ParseException ex) {
-            Logger.getLogger(Estudiante_Consultar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Buscar_EstudianteID(BaseD);
 
         Cerrar_BD(BaseD);
     }//GEN-LAST:event_btnConsultarActionPerformed
@@ -172,4 +175,8 @@ public class curso_eliminar extends javax.swing.JFrame {
     private javax.swing.JTable tablaEliminar;
     private javax.swing.JTextField txtidcurso;
     // End of variables declaration//GEN-END:variables
+
+    private void Buscar_EstudianteID(ObjectContainer BaseD) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
