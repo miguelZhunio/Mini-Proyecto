@@ -37,6 +37,7 @@ SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
     public Estudiante_Crear() {
         initComponents();
+        
 
     }
 
