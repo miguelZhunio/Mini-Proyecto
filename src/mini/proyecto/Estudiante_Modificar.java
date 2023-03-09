@@ -1,11 +1,16 @@
 package mini.proyecto;
 
+import clases.Estudiante;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import javax.swing.JOptionPane;
+import static mini.proyecto.Estudiante_Crear.Cerrar_BD;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
-
 /**
  *
  * @author IV
@@ -15,8 +20,18 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
     /**
      * Creates new form Estudiante_Modificar
      */
+    String cedula_per = "";
+    String nombre_per = "";
+    String apellido_per = "";
+    String pais_per = "";
+    String correo_per = "";
+    String password_per = "";
+    String fechaInscripcion_est = "";
+    String nivel_est = "";
+
     public Estudiante_Modificar() {
         initComponents();
+        btnModificar.setEnabled(false);//Iniciar el boton desabilitado
     }
 
     /**
@@ -45,22 +60,20 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
         txtFecha = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbNivel = new javax.swing.JComboBox<>();
         btnModificar = new javax.swing.JButton();
         cbPais = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
-        txtCedulaConsultar = new javax.swing.JTextField();
-        btnConsultar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEstudiante = new javax.swing.JTable();
+        jBbuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel1.setText("Estudiante");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 140, -1));
+        jLabel1.setText("Modificar Estudiante");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 260, -1));
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +99,7 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, -1, -1));
 
         jLabel7.setText("Correo:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, -1, -1));
 
         jLabel8.setText("Fecha  de Inscipcion:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, -1, -1));
@@ -98,6 +111,11 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
         });
         jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 130, -1));
 
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreKeyTyped(evt);
@@ -118,43 +136,35 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
         jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 160, -1));
         jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 110, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Alto", "Medio", "Bajo" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 70, -1));
+        cbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Alto", "Medio", "Bajo" }));
+        jPanel1.add(cbNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 70, -1));
 
         btnModificar.setText("Modificar");
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, 100, 60));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 100, 60));
 
         cbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ecuador", "Colombia", "Venezuela", "Peru" }));
         jPanel1.add(cbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, -1, -1));
 
-        jLabel10.setText("Cedula:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
-
-        txtCedulaConsultar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCedulaConsultarKeyTyped(evt);
-            }
-        });
-        jPanel1.add(txtCedulaConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 130, -1));
-
-        btnConsultar.setText("Consultar");
-        jPanel1.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, -1, 50));
-
         tblEstudiante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cedula", "Nombre", "Apellido", "Pais", "Correo", "Fecha Inscripcion", "NIvel"
+                "Cedula", "Nombre", "Apellido", "Pais", "Correo", "Contraseña", "Fecha Inscripcion", "NIvel"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -163,7 +173,18 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblEstudiante);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 740, 150));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 820, 150));
+
+        jBbuscar.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jBbuscar.setForeground(new java.awt.Color(0, 0, 255));
+        jBbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lupa.png"))); // NOI18N
+        jBbuscar.setToolTipText("Buscar");
+        jBbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBbuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,12 +192,11 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
         );
 
         pack();
@@ -194,13 +214,13 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
         if (!numeros) {
             System.out.println("Ingreso erroneo: " + evt.getKeyChar());
             evt.consume();
-        } else if (txtCedula.getText().length() >= 10) { 
+        } else if (txtCedula.getText().length() >= 10) {
             evt.consume();
         }
     }//GEN-LAST:event_txtCedulaKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-       char aux = evt.getKeyChar();
+        char aux = evt.getKeyChar();
         String texto = txtNombre.getText();
 
         if (!Character.isLetter(aux) || texto.length() >= 20) {
@@ -225,17 +245,122 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtApellidoKeyTyped
 
-    private void txtCedulaConsultarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaConsultarKeyTyped
-        char aux = evt.getKeyChar();
-        boolean numeros = aux >= '0' && aux <= '9';
-        if (!numeros) {
-            System.out.println("Ingreso erroneo: " + evt.getKeyChar());
-            evt.consume();
-        } else if (txtCedulaConsultar.getText().length() >= 10) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtCedulaConsultarKeyTyped
+    private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
 
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        buscar(BaseD);
+        Cerrar_BD(BaseD);
+    }//GEN-LAST:event_jBbuscarActionPerformed
+    public void buscar(ObjectContainer basep) {//cargardatos
+
+        btnModificar.setEnabled(false);
+        String IDAux;
+        IDAux = txtCedula.getText();
+
+        Estudiante_Crear EAux = new Estudiante_Crear();
+
+        if (txtCedula.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Ingrese una cedula");
+        } else {
+
+            if (EAux.Comprobar_Estudiantes(basep, IDAux) == 0) {
+
+                JOptionPane.showMessageDialog(null, "El estudiante no existe en la base de datos");
+                LimpiarCamposdeTexto();
+
+            } else {
+
+                Estudiante Ebuscar = new Estudiante(null, null, IDAux, null, null, null, null, null);
+
+                ObjectSet result = basep.get(Ebuscar);
+                for (int i = 0; i < result.size(); i++) {
+
+                    Estudiante miE = new Estudiante();
+
+                    miE = (Estudiante) result.get(i);
+
+                    txtNombre.setText(miE.getNombre_per());
+                    txtApellido.setText(miE.getApellido_per());
+                    cbPais.setSelectedItem(miE.getPais_per());
+                    txtCorreo.setText(miE.getCorreo_per());
+                    txtContraseña.setText(miE.getPassword_per());
+                    txtFecha.setText(miE.getFechaInscripcion_est());
+                    cbNivel.setSelectedItem(miE.getNivel_est());
+                }
+
+                //Hacer editable los campos de texto
+                HabilitarCampos_deTexto();
+                txtCedula.setEditable(false);
+            }
+
+        }
+
+    }
+
+    public void asignarVariables(ObjectContainer basep) {
+        cedula_per = txtCedula.getText();
+        nombre_per = txtNombre.getText();
+        apellido_per = txtApellido.getText();
+        pais_per = cbPais.getSelectedItem().toString();
+        correo_per = txtCorreo.getText();
+        password_per = txtContraseña.getText();
+        fechaInscripcion_est = txtFecha.getText();
+        nivel_est = cbNivel.getSelectedItem().toString();
+       
+        
+    }
+    public void Modificar_Estudiante(ObjectContainer basep) {
+            
+                Estudiante Emodi = new Estudiante(null, null, txtCedula.getText(), null, null,null,null, null);
+                ObjectSet result = basep.get(Emodi);
+                Estudiante Emodificar = (Estudiante) result.next();
+                Emodificar.setNombre_per(txtNombre.getText());
+                Emodificar.setApellido_per(txtNombre.getText());
+                Emodificar.setPais_per(cbPais.getSelectedItem().toString());
+                Emodificar.setCorreo_per(txtNombre.getText());
+                Emodificar.setPassword_per(txtNombre.getText());
+                Emodificar.setFechaInscripcion_est(txtFecha.getText());
+                Emodificar.setNivel_est(cbNivel.getSelectedItem().toString());
+                basep.set(Emodificar);
+                JOptionPane.showMessageDialog(null, "El estudiante fue modificado exitosamente");
+                LimpiarCamposdeTexto();
+            
+    }
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        Modificar_Estudiante(BaseD);
+        Cerrar_BD(BaseD);
+        txtCedula.setEditable(true);
+    }//GEN-LAST:event_btnModificarActionPerformed
+    public static void Cerrar_BD(ObjectContainer basep) {
+
+        basep.close();
+    }
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+    public void LimpiarCamposdeTexto() {
+        txtCedula.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        cbPais.setSelectedIndex(0);
+        txtCorreo.setText("");
+        txtContraseña.setText("");
+        txtFecha.setText("");
+        cbNivel.setSelectedIndex(0);
+    }
+
+    public void HabilitarCampos_deTexto() {
+        txtCedula.setEditable(true);
+        txtNombre.setEditable(true);
+        txtApellido.setEditable(true);
+        cbPais.setEditable(true);
+        txtCorreo.setEditable(true);
+        txtContraseña.setEditable(true);
+        txtFecha.setEditable(true);
+        cbNivel.setEditable(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -272,13 +397,12 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> cbNivel;
     private javax.swing.JComboBox<String> cbPais;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jBbuscar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -292,10 +416,10 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
     private javax.swing.JTable tblEstudiante;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtCedulaConsultar;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
 }

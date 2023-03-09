@@ -62,6 +62,9 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
         txtFecha = new javax.swing.JTextField();
         cbNivel = new javax.swing.JComboBox<>();
         cbPais = new javax.swing.JComboBox<>();
+        btnEliminar = new javax.swing.JButton();
+        txlCedulaC = new javax.swing.JLabel();
+        txtCedulaC = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,28 +92,31 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
 
         tblEstudiante1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cedula", "Nombre", "Apellido", "Pais", "Correo", "Fecha Inscripcion", "NIvel"
+                "Cedula", "Nombre", "Apellido", "Pais", "Correo", "Contraseña", "Fecha Inscripcion", "NIvel"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblEstudiante1.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblEstudiante1);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 740, 150));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 810, 150));
 
         jLabel3.setText("Filtro:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
@@ -185,13 +191,25 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
         cbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ecuador", "Colombia", "Venezuela", "Peru" }));
         jPanel2.add(cbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 690, 240));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 690, 230));
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, -1, 50));
+
+        txlCedulaC.setText("Cedula:");
+        jPanel1.add(txlCedulaC, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, -1, -1));
+        jPanel1.add(txtCedulaC, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,15 +228,14 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-  
         ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
         try {
-            Buscar_EstudianteID(BaseD);
+            BuscarEstudiante_Cedula(BaseD);
         } catch (ParseException ex) {
             Logger.getLogger(Estudiante_Consultar.class.getName()).log(Level.SEVERE, null, ex);
         }
-               
         Cerrar_BD(BaseD);
+        
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void BuscarOpcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarOpcionActionPerformed
@@ -280,10 +297,18 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtApellidoKeyTyped
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        Eliminar_Estudiante(BaseD);
+        Cerrar_BD(BaseD);
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public void Buscar_EstudianteID(ObjectContainer basep) throws ParseException {
+    public void BuscarEstudiante_Cedula(ObjectContainer basep) throws ParseException {
 
         if (BuscarOpcion.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Selección invalida");
@@ -366,7 +391,6 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
         String ContraseñaAux;
         String FIAux;
         String NivelAux;
-        Date fecha_ins = null;
         
 
 //        if (txtCedula.getText().isEmpty()) {
@@ -409,8 +433,6 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
             FIAux = null;
         } else {
             FIAux = txtFecha.getText();
-            fecha_ins = formatoFecha.parse(FIAux);
-            
         }
         if (cbNivel.getSelectedIndex() == 0) {
             NivelAux = null;
@@ -420,19 +442,10 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
         
         if (NombreAux == null && ApellidoAux == null && PaisAux == null && CorreoAux == null && ContraseñaAux == null &&  FIAux== null && NivelAux == null) {
             JOptionPane.showMessageDialog(null, "Aun no ha ingresado los parametros");
-//            Nombre.setEditable(true);
-//            Apellido.setEditable(true);
-//            Ciudad.setEditable(true);
-//            Edad.setEnabled(true);
         } else {
-            Estudiante Ebuscar = new Estudiante(fecha_ins, null, NombreAux, ApellidoAux, PaisAux, CorreoAux, ContraseñaAux, NivelAux); 
-
+            Estudiante Ebuscar = new Estudiante(FIAux, NivelAux,null, NombreAux, ApellidoAux, PaisAux, CorreoAux, ContraseñaAux);
             ObjectSet result = basep.get(Ebuscar);
             MostrarDatos(result);
-//            Nombre.setEditable(true);
-//            Apellido.setEditable(true);
-//            Ciudad.setEditable(true);
-//            Edad.setEnabled(true);
         }
     }
     public void MostrarDatos(ObjectSet result) {
@@ -452,14 +465,41 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
                 matrizestudiantes[i][3] = miE.getPais_per();
                 matrizestudiantes[i][4] = miE.getCorreo_per();
                 matrizestudiantes[i][5] = miE.getPassword_per();
-                //matrizestudiantes[i][6] = miE.getFechaInscripcion_est();
+                matrizestudiantes[i][6] = miE.getFechaInscripcion_est();
                 matrizestudiantes[i][7] = miE.getNivel_est();
 
-                tblEstudiante1.setModel(new javax.swing.table.DefaultTableModel(matrizestudiantes, new String[]{"Cedula", "Nombre", "Apellido", "Pais", "Correo", "Fecha Inscripcion", "Nivel"}));
+                tblEstudiante1.setModel(new javax.swing.table.DefaultTableModel(matrizestudiantes, new String[]{"Cedula", "Nombre", "Apellido", "Pais", "Correo","Contraseña", "Fecha Inscripcion", "Nivel"}));
 
             }
         }
 
+    }
+    public void Eliminar_Estudiante(ObjectContainer basep) {
+
+        Estudiante Einterfaz = new Estudiante();//Crear un objeto de la clase Estudiantes para traer el metodo Comprobar_Estudiantes
+
+        if (txtCedulaC.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "ID no valido");
+        } else {
+
+            String txtCedulaCo = txtCedulaC.getText();
+            Estudiante Leliminar = new Estudiante(null, null, txtCedulaCo, null, null, null, null, null);
+            ObjectSet result = basep.get(Leliminar);
+
+            if (Einterfaz.Comprobar_Estudiantes(basep, txtCedulaCo) == 0) {
+
+                JOptionPane.showMessageDialog(null, "El estudiante no existe en la base de datos");
+
+            } else {
+                Estudiante Estudianteeliminar = (Estudiante) result.next();
+
+                basep.delete(Estudianteeliminar);
+                JOptionPane.showMessageDialog(null, "El estudiante fue eliminado de la base de datos exitosamente");
+            }
+
+        }
+        //Borrar el campo de texto
+        txtCedulaC.setText("");
     }
     public void Cerrar_BD(ObjectContainer basep) {
 
@@ -502,6 +542,7 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> BuscarOpcion;
     private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cbNivel;
     private javax.swing.JComboBox<String> cbPais;
@@ -513,6 +554,7 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
     private javax.swing.JTable tblEstudiante1;
     private javax.swing.JLabel txlApellido;
     private javax.swing.JLabel txlCedula;
+    private javax.swing.JLabel txlCedulaC;
     private javax.swing.JLabel txlContraseña;
     private javax.swing.JLabel txlCorreo;
     private javax.swing.JLabel txlFI;
@@ -521,6 +563,7 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
     private javax.swing.JLabel txlPais;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtCedulaC;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtFecha;

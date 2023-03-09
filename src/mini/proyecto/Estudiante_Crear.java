@@ -5,6 +5,7 @@
 package mini.proyecto;
 
 import clases.Estudiante;
+import clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -13,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import mini.proyecto.MiniProyecto;
+import java.util.Date;
+
 
 /**
  *
@@ -21,7 +24,8 @@ import mini.proyecto.MiniProyecto;
 public class Estudiante_Crear extends javax.swing.JFrame {
     
     
-SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    
+//SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * Creates new form Estudiante_Crear
@@ -32,7 +36,7 @@ SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     String pais_per = "";
     String correo_per = "";
     String password_per = "";
-    Date fechaInscripcion_est;
+    String fechaInscripcion_est = "";
     String nivel_est = "";
 
     public Estudiante_Crear() {
@@ -225,48 +229,17 @@ SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     /**
      * @param args the command line arguments
      */
-    public void asignarVariables(ObjectContainer basep) throws ParseException {
-//        cedula_per = txtCedula.getText();
-//        nombre_per = txtNombre.getText();
-//        apellido_per = txtApellido.getText();
-//        pais_per = cbPais.getSelectedItem().toString();
-//        correo_per = txtCorreo.getText();
-//        //password_per = txtContraseña.getText();
-//        //fechaInscripcion_est = txtFecha.getText();
-//        nivel_est = cbNivel.getSelectedItem().toString();
-String fechaInscripcion = txtFecha.getText();
-//SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-//Date fechaInscripcion_est = formato.parse(fechaInscripcion);
-
-
-        
-        if (!txtCedula.getText().isEmpty()) {
+    public void asignarVariables(ObjectContainer basep) {
         cedula_per = txtCedula.getText();
-    }
-    if (!txtNombre.getText().isEmpty()) {
         nombre_per = txtNombre.getText();
-    }
-    if (!txtApellido.getText().isEmpty()) {
         apellido_per = txtApellido.getText();
-    }
-    if (cbPais.getSelectedItem() != null) {
         pais_per = cbPais.getSelectedItem().toString();
-    }
-    if (!txtCorreo.getText().isEmpty()) {
         correo_per = txtCorreo.getText();
-    }
-    if (!txtContraseña.getText().isEmpty()) {
         password_per = txtContraseña.getText();
+        fechaInscripcion_est = txtFecha.getText();
+        nivel_est = cbNivel.getSelectedItem().toString(); 
     }
-    if (!txtFecha.getText().isEmpty()) {
-        fechaInscripcion_est = formato.parse(fechaInscripcion);
-    }
-    if (cbNivel.getSelectedItem() != null) {
-        nivel_est = cbNivel.getSelectedItem().toString();
-    }
-    }
-
-    public void Crear_E(ObjectContainer basep) {
+    public void Crear_E(ObjectContainer basep) {   
         Estudiante Enuevo = new Estudiante(fechaInscripcion_est, nivel_est, cedula_per, nombre_per, apellido_per, pais_per,  correo_per,  password_per);
 
             if (Comprobar_Estudiantes(basep, cedula_per) == 0) {
@@ -280,7 +253,6 @@ String fechaInscripcion = txtFecha.getText();
 
             txtCedula.setText("");
     }
-
     public static int Comprobar_Estudiantes(ObjectContainer basep, String cedula_per) {
 
         Estudiante Ebuscar = new Estudiante(null, null, cedula_per, null, null, null, null, null);
