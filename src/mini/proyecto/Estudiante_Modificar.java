@@ -184,7 +184,7 @@ public class Estudiante_Modificar extends javax.swing.JFrame {
                 jBbuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(jBbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
+        jPanel1.add(jBbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

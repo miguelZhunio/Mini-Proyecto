@@ -61,6 +61,11 @@ public class tema extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Regresar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -319,6 +324,13 @@ public class tema extends javax.swing.JFrame {
     private void txtCodCursoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodCursoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodCursoKeyTyped
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+           this.dispose();
+        MiniProyecto w = new MiniProyecto();
+        w.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
