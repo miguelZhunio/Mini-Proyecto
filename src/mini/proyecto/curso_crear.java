@@ -5,7 +5,8 @@
  */
 package mini.proyecto;
 
-import clases.Curso;
+import clases.Carrera;
+import clases.*;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -189,8 +190,8 @@ public class curso_crear extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
-
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        asignarVariables();
         Crear_Curso(BaseD);
         Cerrar_BD(BaseD);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -239,10 +240,10 @@ ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
         }    
       
     }//GEN-LAST:event_txtidprofesorKeyTyped
-public void asignarVariables(ObjectContainer basep) throws ParseException {
+public void asignarVariables() {
 
         
-        if (!txtcodigo.getText().isEmpty()) {
+    if (!txtcodigo.getText().isEmpty()) {
         cod_cur = txtcodigo.getText();
     }
     if (!txtnombre.getText().isEmpty()) {
@@ -269,15 +270,32 @@ public void asignarVariables(ObjectContainer basep) throws ParseException {
 }
 
     public void Crear_Curso(ObjectContainer basep) {
-         Curso crearcurso = new Curso (cod_cur, nombre_cur, duracion, precio, silabo, deescripcion,  id_pro,  cod_car);
-            if (Comprobar_Cursos(basep, cod_cur) == 0) {
+            boolean error=false;
+            if (Comprobar_Cursos(basep, cod_cur) != 0) {
+                error = true;
+                JOptionPane.showMessageDialog(null, "EL CURSO YA EXISTE");     
+            } else {
+                txtcodigo.setText("");
+            }
+            
+            if (!(Comprobar_Carrera(basep,cod_car))) {
+                error = true;
+                JOptionPane.showMessageDialog(null, "LA CARRERA NO EXISTE");
+            }
+            
+            if (Comprobar_Profesor(basep,cod_car) == 0 ) {
+                error = true;
+                JOptionPane.showMessageDialog(null, "EL PROFESOR NO EXISTE");
+            }
+            
+            if (!error) {
+                Curso crearcurso = new Curso (cod_cur, nombre_cur, duracion, precio, silabo, deescripcion,  id_pro,  cod_car);
                 basep.set(crearcurso);
                 JOptionPane.showMessageDialog(null, "EL CURSO SE GUARDO CORRECTAMENTE");
                 LimpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(null, "EL CURSO YA EXISTE");
             }
-            txtcodigo.setText("");
+            
+            
     }
     public static int Comprobar_Cursos(ObjectContainer basep, String cod_cur) {
 
@@ -286,6 +304,18 @@ public void asignarVariables(ObjectContainer basep) throws ParseException {
         ObjectSet result = basep.get(Cbuscar);
 
         return result.size();
+    }
+    
+    public static boolean Comprobar_Carrera(ObjectContainer basep, String cod_car) {
+        ObjectSet result = basep.get(new Carrera(cod_car, null, null, null));
+            
+            return result.isEmpty();
+    }
+    
+    public static int Comprobar_Profesor(ObjectContainer basep, String id_pro) {
+        ObjectSet result = basep.get(new Profesor(null, null, null, null, null, id_pro, null, null, null, null, null));
+            
+       return result.size();
     }
 
     public static void Cerrar_BD(ObjectContainer basep) {
