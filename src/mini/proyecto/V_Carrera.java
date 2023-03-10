@@ -18,6 +18,8 @@ public class V_Carrera extends javax.swing.JFrame {
      */
     public V_Carrera() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Ingreso de Carrera");
     }
 
     /**

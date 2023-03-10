@@ -15,7 +15,10 @@ public class BuscarFactura extends javax.swing.JFrame {
     DefaultTableModel dtmFactura = new DefaultTableModel();
     public BuscarFactura() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Buscar Factura");
         setModel();
+        
     }
     
     private void setModel() {

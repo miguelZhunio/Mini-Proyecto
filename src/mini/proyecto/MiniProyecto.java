@@ -17,13 +17,18 @@ import com.db4o.ObjectContainer;
 public class MiniProyecto extends javax.swing.JFrame {
     //COLOCAR LA DIRECCION DE LA BASE DE DATOS
     //public static String direccionBD=("C:\\Base\\BDA.yap");
-    public static String direccionBD = ("C:\\Users\\David\\Desktop\\BDA.yap");
+    public static String direccionBD = ("C:\\Base\\BDA.yap");
 
     /**
      * Creates new form MiniProyecto
      */
     public MiniProyecto() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Mini Proyecto");
+        if(System.getProperty("os.name").startsWith("Windows")){
+            direccionBD=("C:\\Base\\BDA.yap");
+        }
         
         //ObjectContainer Base = Db4o.openFile("C:\\Users\\David\\Desktop\\BDA.yap");
         
@@ -59,12 +64,10 @@ public class MiniProyecto extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -157,14 +160,6 @@ public class MiniProyecto extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItem9);
 
-        jMenuItem8.setText("Consultar");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItem8);
-
         jMenuItem6.setText("Modificar");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,14 +187,6 @@ public class MiniProyecto extends javax.swing.JFrame {
             }
         });
         jMenu8.add(jMenuItem10);
-
-        jMenuItem12.setText("Consultar");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem12);
 
         jMenuItem13.setText("Modificar");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
@@ -360,10 +347,6 @@ public class MiniProyecto extends javax.swing.JFrame {
         crear.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         this.dispose();
         Estudiante_Crear c = new Estudiante_Crear();
@@ -413,12 +396,6 @@ public class MiniProyecto extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jMenuItem25ActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        this.dispose();
-        ConProf ventana = new ConProf();
-        ventana.setVisible(true);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
-
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         this.dispose();
         ElimProf eliminar = new ElimProf();
@@ -432,7 +409,7 @@ public class MiniProyecto extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         this.dispose();
-        ConGer consultar = new ConGer();
+        CreGerente consultar = new CreGerente();
         consultar.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
@@ -506,7 +483,6 @@ public class MiniProyecto extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
@@ -532,7 +508,6 @@ public class MiniProyecto extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

@@ -17,6 +17,8 @@ public class certifica_crear extends javax.swing.JFrame {
     
     public certifica_crear() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Crear Certificado");
     }
 
     /**

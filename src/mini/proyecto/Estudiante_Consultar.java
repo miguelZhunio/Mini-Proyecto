@@ -25,6 +25,8 @@ public class Estudiante_Consultar extends javax.swing.JFrame {
      */
     public Estudiante_Consultar() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Consulta de Estudiantes");
         deshabilitarParametros();
     }
 

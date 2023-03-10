@@ -16,6 +16,8 @@ public class curso_modificar extends javax.swing.JFrame {
      */
     public curso_modificar() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Modificar Curso");
     }
 
     /**

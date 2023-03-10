@@ -17,6 +17,8 @@ public class Carrera_Eliminar extends javax.swing.JFrame {
      */
     public Carrera_Eliminar() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Eliminar Carrera");
     }
 
     /**

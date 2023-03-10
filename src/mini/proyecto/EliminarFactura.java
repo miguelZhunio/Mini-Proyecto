@@ -17,6 +17,8 @@ public class EliminarFactura extends javax.swing.JFrame {
      */
     public EliminarFactura() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Borrar Factura");
     }
     private void setModelo() {
         

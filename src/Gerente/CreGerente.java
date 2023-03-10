@@ -5,6 +5,8 @@
  */
 package Gerente;
 
+import clases.Gerente;
+import com.db4o.*;
 import javax.swing.JOptionPane;
 import mini.proyecto.MiniProyecto;
 
@@ -13,12 +15,23 @@ import mini.proyecto.MiniProyecto;
  * @author Usuario
  */
 public class CreGerente extends javax.swing.JFrame {
+    String cedula = "";
+         String nombre = "";
+         String apellido= "";
+         String Pais = "";
+         String correo = "";
+         String password= "";
+         String gerencia = "";
+    private Object Enuevo;
+    private String cedula_per;
 
     /**
      * Creates new form CreGerente
      */
     public CreGerente() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Registrar Gerente");
     }
 
     /**
@@ -51,8 +64,6 @@ public class CreGerente extends javax.swing.JFrame {
         txtpass = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,7 +177,7 @@ public class CreGerente extends javax.swing.JFrame {
             }
         });
 
-        pais.setBackground(new java.awt.Color(0, 153, 153));
+        pais.setBackground(new java.awt.Color(153, 255, 255));
         pais.setFont(new java.awt.Font("Rockwell Extra Bold", 2, 12)); // NOI18N
         pais.setForeground(new java.awt.Color(0, 153, 153));
         pais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECUADOR", "PERU", "COLOMBIA", "VENEZUELA", "MEXIO", "CHILE" }));
@@ -282,20 +293,6 @@ public class CreGerente extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jTable1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 3, true));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -304,10 +301,7 @@ public class CreGerente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 50, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -317,8 +311,6 @@ public class CreGerente extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -326,21 +318,17 @@ public class CreGerente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 852, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -393,7 +381,7 @@ public class CreGerente extends javax.swing.JFrame {
         // TODO add your handling code here:
         char aux = evt.getKeyChar();
         char aux1 = evt.getKeyChar();
-        boolean Mayus = aux >= 65 && aux < 90;
+        boolean Mayus = aux >= 63 && aux < 90;
         boolean minus = aux1 >= 94 && aux1 < 122;
         boolean ret =aux == 8;
         boolean ent = aux == 13;
@@ -446,7 +434,59 @@ public class CreGerente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+
+        Crear_E(BaseD);
+        Cerrar_BD(BaseD);
     }//GEN-LAST:event_jButton1ActionPerformed
+public void asignarVariables(ObjectContainer basep) {
+        cedula = txtcedu.getText();
+        nombre = txtnom.getText();
+        apellido = txtapell.getText();
+        Pais= pais.getSelectedItem().toString();
+        correo = txtcorr.getText();
+        password = txtpass.getText();
+        gerencia= Gerencia.getSelectedItem().toString();
+    }
+    public void Crear_E(ObjectContainer basep) {   
+             Gerente Gerente= new Gerente ( "tipo_ger", "titulo_tra","fechaCobro_tra", "sueldo_tra","cedula_per", "nombre_per", "apellido_per", "pais_per", "correo_per","password_per");
+
+            if (Comprobar_Gerente(basep, cedula_per ) == 0) {
+                
+                basep.set(Enuevo);
+                JOptionPane.showMessageDialog(null, "El estudiante se guardo correctamente");
+                LimpiarCampos();
+            } else {
+
+                JOptionPane.showMessageDialog(null, "El estudiante ya existe");
+            }
+
+            txtcedu.setText("");
+    }
+    public static int Comprobar_Gerente(ObjectContainer basep, String cedula_per) {
+
+        Gerente Ebuscar = new Gerente ( null, null,null, null,"cedula_per", null, null, null, null,null);
+
+        ObjectSet result = basep.get(Ebuscar);
+
+        return result.size();
+    }
+
+    public static void Cerrar_BD(ObjectContainer basep) {
+
+        basep.close();
+    }
+
+    public void LimpiarCampos() {
+        txtcedu.setText("");
+        txtnom.setText("");
+        txtapell.setText("");
+        pais.setSelectedIndex(0);
+        txtcorr.setText("");
+        txtpass.setText("");
+        Gerencia.setSelectedIndex(0);
+        
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -506,8 +546,6 @@ public class CreGerente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> pais;
     private javax.swing.JTextField txtapell;
     private javax.swing.JTextField txtcedu;

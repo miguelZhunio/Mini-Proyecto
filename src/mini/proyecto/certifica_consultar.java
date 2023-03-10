@@ -23,6 +23,8 @@ public class certifica_consultar extends javax.swing.JFrame {
      */
     public certifica_consultar() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Comsulta de Certidicados");
     }
 
     /**

@@ -22,6 +22,8 @@ public class certifica_eliminar extends javax.swing.JFrame {
      * Creates new form certifica_eliminar
      */
     public certifica_eliminar() {
+        this.setLocationRelativeTo(null);
+        this.setTitle("Eliminar Certificado");
         initComponents();
     }
 

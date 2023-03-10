@@ -17,6 +17,8 @@ public class Carrera_Modificar extends javax.swing.JFrame {
      */
     public Carrera_Modificar() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Modificar Carrera");
     }
 
     /**

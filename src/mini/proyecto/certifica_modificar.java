@@ -16,6 +16,8 @@ public class certifica_modificar extends javax.swing.JFrame {
      */
     public certifica_modificar() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Modificar Certificado");
     }
 
     /**

@@ -409,7 +409,7 @@ public class GenerarFactura extends javax.swing.JFrame {
         ObjectSet BuscarCurso =  BaseD.get(new Curso(null, nombreCurso, null, 0, null, null, null, null));   
         Curso cursoEscogido = (Curso) BuscarCurso.next();
         
-        ObjectSet BuscarProfesor =  BaseD.get(new Profesor(null, null, null, null, 0, cursoEscogido.getId_pro(), null, null, null, null, null));
+        ObjectSet BuscarProfesor =  BaseD.get(new Profesor(null, null, null, null, null, cursoEscogido.getId_pro(), null, null, null, null, null));
         Profesor profesor = (Profesor) BuscarProfesor.next();
         
         Object[] datos = new Object[dtmFactura.getColumnCount()];

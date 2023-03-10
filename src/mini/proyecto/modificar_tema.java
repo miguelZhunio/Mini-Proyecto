@@ -19,6 +19,8 @@ public class modificar_tema extends javax.swing.JFrame {
      */
     public modificar_tema() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Modificar Tema");
     }
 
     /**

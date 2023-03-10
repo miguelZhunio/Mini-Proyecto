@@ -17,6 +17,8 @@ public class Carrera_Consultar extends javax.swing.JFrame {
      */
     public Carrera_Consultar() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Consulta de Carrera");
     }
 
     /**

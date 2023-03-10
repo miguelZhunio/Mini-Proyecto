@@ -5,7 +5,16 @@
  */
 package Gerente;
 
+import clases.Gerente;
+import com.db4o.*;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
+import mini.proyecto.MiniProyecto;
+import java.text.ParseException;
+import javax.swing.JOptionPane;
+
 import mini.proyecto.MiniProyecto;
 
 /**
@@ -19,6 +28,9 @@ public class ElimGer extends javax.swing.JFrame {
      */
     public ElimGer() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Eliminar Gerente");
+        deshabilitarParametros();
     }
 
     /**
@@ -30,150 +42,460 @@ public class ElimGer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        btnRegresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        Jlabel3 = new javax.swing.JLabel();
-        txtced = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        btnConsultar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblEstudiante1 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        BuscarOpcion = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        txlCedula = new javax.swing.JLabel();
+        txlNombre = new javax.swing.JLabel();
+        txlApellido = new javax.swing.JLabel();
+        txlPais = new javax.swing.JLabel();
+        txlContraseña = new javax.swing.JLabel();
+        txlCorreo = new javax.swing.JLabel();
+        txtCedula = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txlNivel = new javax.swing.JLabel();
+        txtContraseña = new javax.swing.JPasswordField();
+        cbNivel = new javax.swing.JComboBox<>();
+        cbPais = new javax.swing.JComboBox<>();
+        btnEliminar = new javax.swing.JButton();
+        txlCedulaC = new javax.swing.JLabel();
+        txtCedulaC = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel2.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setBackground(new java.awt.Color(51, 102, 255));
-        jLabel1.setFont(new java.awt.Font("Rockwell", 3, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel1.setText("LIMINAR PROFESOR");
-
-        Jlabel3.setFont(new java.awt.Font("Rockwell Extra Bold", 3, 14)); // NOI18N
-        Jlabel3.setForeground(new java.awt.Color(0, 0, 153));
-        Jlabel3.setText("Cedula: ");
-
-        txtced.setBackground(new java.awt.Color(0, 153, 153));
-        txtced.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtcedActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
-        txtced.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtcedKeyTyped(evt);
-            }
-        });
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 204));
-        jButton1.setText("ELIMINAR");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setText("Gerente");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 140, -1));
 
-        jButton3.setBackground(new java.awt.Color(0, 153, 204));
-        jButton3.setText("REGRESAR");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnConsultarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, -1, 50));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblEstudiante1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cedula", "Nombre", "Apellido", "Pais", "Correo", "Contraseña", "Especialidad"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(169, 169, 169))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(Jlabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtced, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(168, 168, 168))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Jlabel3)
-                    .addComponent(txtced, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 17, Short.MAX_VALUE))
-        );
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblEstudiante1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tblEstudiante1);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 810, 150));
+
+        jLabel3.setText("Filtro:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+
+        BuscarOpcion.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        BuscarOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "Ver todos", "ID", "Buscar Parametros" }));
+        BuscarOpcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarOpcionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BuscarOpcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, -1, -1));
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txlCedula.setText("Cedula:");
+        jPanel2.add(txlCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+
+        txlNombre.setText("Nombre:");
+        jPanel2.add(txlNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+
+        txlApellido.setText("Apellido:");
+        jPanel2.add(txlApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
+
+        txlPais.setText("Pais:");
+        jPanel2.add(txlPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
+
+        txlContraseña.setText("Contraseña:");
+        jPanel2.add(txlContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, -1, -1));
+
+        txlCorreo.setText("Correo:");
+        jPanel2.add(txlCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, -1, -1));
+
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 130, -1));
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 130, -1));
+
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 130, -1));
+
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorreoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 160, -1));
+
+        txlNivel.setText("Gerencia");
+        jPanel2.add(txlNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, -1, -1));
+        jPanel2.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 160, -1));
+
+        cbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GENERAL", "FINANCIERA", "MARKETING" }));
+        jPanel2.add(cbNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 70, -1));
+
+        cbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ecuador", "Colombia", "Venezuela", "Peru" }));
+        jPanel2.add(cbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, -1, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 690, 230));
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, -1, 50));
+
+        txlCedulaC.setText("Cedula:");
+        jPanel1.add(txlCedulaC, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, -1, -1));
+        jPanel1.add(txtCedulaC, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtcedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcedActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtcedActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        this.dispose();
+        MiniProyecto m = new MiniProyecto();
+        m.setVisible(true);
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void txtcedKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcedKeyTyped
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        try {
+            BuscarGerente_Cedula(BaseD);
+        } catch (ParseException ex) {
+        }
+        Cerrar_BD(BaseD);
+
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void BuscarOpcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarOpcionActionPerformed
+        if (BuscarOpcion.getSelectedIndex() == 0) {
+            deshabilitarParametros();
+        } else {
+            if (BuscarOpcion.getSelectedIndex() == 1) {
+                deshabilitarParametros();
+            } else {
+                if (BuscarOpcion.getSelectedIndex() == 2) {
+                    deshabilitarParametros();
+                } else {
+                    if (BuscarOpcion.getSelectedIndex() == 3) {
+                        habilitarParametros();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BuscarOpcionActionPerformed
+
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
         char aux = evt.getKeyChar();
-        boolean ced = aux >= 48 && aux < 58;
-        boolean ret =aux == 8;
-        boolean ent = aux == 13;
-
-        if (ced == false&& ret== false && ent== false ) {
-            JOptionPane.showMessageDialog(null, "El dato:\n " + "-> "+evt.getKeyChar()+"<-\n"+"No esta Permitido");
+        boolean numeros = aux >= '0' && aux <= '9';
+        if (!numeros) {
+            System.out.println("Ingreso erroneo: " + evt.getKeyChar());
             evt.consume();
-        } else if (txtced.getText().length() >= 10) {
+        } else if (txtCedula.getText().length() >= 10) {
             evt.consume();
         }
-    }//GEN-LAST:event_txtcedKeyTyped
+    }//GEN-LAST:event_txtCedulaKeyTyped
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char aux = evt.getKeyChar();
+        String texto = txtNombre.getText();
+
+        if (!Character.isLetter(aux) || texto.length() >= 20) {
+            evt.consume(); // Ignorar caracteres que no sean letras o que excedan la longitud permitida
+        } else if (texto.length() == 0 && !Character.isUpperCase(aux)) {
+            evt.consume(); // Si el primer carácter no es mayúscula, ignorar
+        } else if (texto.length() > 0 && !Character.isLowerCase(aux)) {
+            evt.consume(); // Si no es el primer carácter y no es minúscula, ignorar
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        char aux = evt.getKeyChar();
+        String texto = txtApellido.getText();
+
+        if (!Character.isLetter(aux) || texto.length() >= 20) {
+            evt.consume(); // Ignorar caracteres que no sean letras o que excedan la longitud permitida
+        } else if (texto.length() == 0 && !Character.isUpperCase(aux)) {
+            evt.consume(); // Si el primer carácter no es mayúscula, ignorar
+        } else if (texto.length() > 0 && !Character.isLowerCase(aux)) {
+            evt.consume(); // Si no es el primer carácter y no es minúscula, ignorar
+        }
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        MiniProyecto mini=new MiniProyecto();
-        mini.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        Eliminar_Gerente(BaseD);
+        Cerrar_BD(BaseD);
 
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoActionPerformed
+
+    public void BuscarGerente_Cedula(ObjectContainer basep) throws ParseException {
+
+        if (BuscarOpcion.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Selección invalida");
+//            deshabilitarParametros();
+        } else {
+            if (BuscarOpcion.getSelectedIndex() == 1) {
+//                deshabilitarParametros();
+                Gerente Ebuscar = new Gerente (null, null, null, null, null, null, null, null,null,null);
+
+                ObjectSet result = basep.get(Ebuscar);
+                MostrarDatos(result);
+            } else {
+                if (BuscarOpcion.getSelectedIndex() == 2) {
+//                    deshabilitarParametros();
+                    String IDAux = JOptionPane.showInputDialog("Ingrese la cedula a consultar");
+//Ojo
+                    Gerente Ebuscar = new Gerente (null, null, null, null, null, null, null, null,null,null);
+
+                    ObjectSet result = basep.get(Ebuscar);
+                    MostrarDatos(result);
+
+                } else {
+                    if (BuscarOpcion.getSelectedIndex() == 3) {
+//                        habilitarParametros();
+                        BuscarParametros(basep);
+
+                    }
+                }
+            }
+        }
+
+        //Borrar la eleccion y ponerla al inicio
+        BuscarOpcion.setSelectedIndex(0);
+    }
+    public void habilitarParametros() {
+        txtCedula.setEnabled(true);
+        txtNombre.setEnabled(true);
+        txtApellido.setEnabled(true);
+        cbPais.setEnabled(true);
+        txtCorreo.setEnabled(true);
+        txtContraseña.setEnabled(true);
+        
+        cbNivel.setEnabled(true);
+        //
+        txlCedula.setEnabled(true);
+        txlNombre.setEnabled(true);
+        txlApellido.setEnabled(true);
+        txlPais.setEnabled(true);
+        txlCorreo.setEnabled(true);
+        txlContraseña.setEnabled(true);
+       
+        txlNivel.setEnabled(true);
+        
+    }
+    public void deshabilitarParametros() {
+        txtCedula.setEnabled(false);
+        txtNombre.setEnabled(false);
+        txtApellido.setEnabled(false);
+        cbPais.setEnabled(false);
+        txtCorreo.setEnabled(false);
+        txtContraseña.setEnabled(false);
+        
+        cbNivel.setEnabled(false);
+        //
+        txlCedula.setEnabled(false);
+        txlNombre.setEnabled(false);
+        txlApellido.setEnabled(false);
+        txlPais.setEnabled(false);
+        txlCorreo.setEnabled(false);
+        txlContraseña.setEnabled(false);
+        txlNivel.setEnabled(false);
+    }
+    public void BuscarParametros(ObjectContainer basep) throws ParseException {
+        //String CedulaAux;
+        String NombreAux;
+        String ApellidoAux;
+        String PaisAux;
+        String CorreoAux;
+        String ContraseñaAux;
+        String FIAux;
+        String NivelAux;
+        
+         if (txtNombre.getText().isEmpty()) {
+
+            NombreAux = null;
+        } else {
+            NombreAux = txtNombre.getText();
+        }
+        if (txtApellido.getText().isEmpty()) {
+
+            ApellidoAux = null;
+        } else {
+            ApellidoAux = txtApellido.getText();
+        }
+        if (cbPais.getSelectedIndex() == 0) {
+            PaisAux = null;
+        } else {
+            PaisAux = cbPais.getSelectedItem().toString();
+        }
+        if (txtCorreo.getText().isEmpty()) {
+
+            CorreoAux = null;
+        } else {
+            CorreoAux = txtCorreo.getText();
+        }
+        if (txtContraseña.getText().isEmpty()) {
+
+            ContraseñaAux = null;
+        } else {
+            ContraseñaAux = txtContraseña.getText();
+        
+        }
+        if (cbNivel.getSelectedIndex() == 0) {
+            NivelAux = null;
+        } else {
+            NivelAux = cbNivel.getSelectedItem().toString();
+        }
+        
+        if (NombreAux == null && ApellidoAux == null && PaisAux == null && CorreoAux == null && ContraseñaAux == null && NivelAux == null) {
+            JOptionPane.showMessageDialog(null, "Aun no ha ingresado los parametros");
+        } else {
+            Gerente Ebuscar = new Gerente ( NivelAux,null, NombreAux, ApellidoAux, PaisAux, CorreoAux, ContraseñaAux);
+            ObjectSet result = basep.get(Ebuscar);
+            MostrarDatos(result);
+        }
+    }
+    public void MostrarDatos(ObjectSet result) {
+        String matrizestudiantes[][] = new String[result.size()][8];
+
+        if (result.size() == 0) {
+            JOptionPane.showMessageDialog(null, "El estudiante no se encuentra en la base de datos");
+        } else {
+            for (int i = 0; i < result.size(); i++) {
+
+                Gerente miE = new Gerente();
+
+                miE = (Gerente) result.get(i);
+                matrizestudiantes[i][0] = miE.getCedula_per();
+                matrizestudiantes[i][1] = miE.getNombre_per();
+                matrizestudiantes[i][2] = miE.getApellido_per();
+                matrizestudiantes[i][3] = miE.getPais_per();
+                matrizestudiantes[i][4] = miE.getCorreo_per();
+                matrizestudiantes[i][5] = miE.getPassword_per();
+                matrizestudiantes[i][6]= miE.getTipo_ger();
+                
+                tblEstudiante1.setModel(new javax.swing.table.DefaultTableModel(matrizestudiantes, new String[]{"Cedula", "Nombre", "Apellido", "Pais", "Correo","Contraseña", "Fecha Inscripcion", "Nivel"}));
+
+            }
+        }
+
+    }
+    public void Eliminar_Gerente(ObjectContainer basep) {
+
+        Gerente Einterfaz = new Gerente();//Crear un objeto de la clase Estudiantes para traer el metodo Comprobar_Estudiantes
+
+        if (txtCedulaC.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "ID no valido");
+        } else {
+
+            String txtCedulaCo = txtCedulaC.getText();
+            Gerente Leliminar = new Gerente(null, null,null, null,txtCedula.getText(), null, null, null, null,null);
+            ObjectSet result = basep.get(Leliminar);
+
+            if (Einterfaz.Comprobar_Gerente(basep, txtCedulaCo) == 0) {
+
+                JOptionPane.showMessageDialog(null, "El estudiante no existe en la base de datos");
+
+            } else {
+                Gerente Estudianteeliminar = (Gerente) result.next();
+
+                basep.delete(Estudianteeliminar);
+                JOptionPane.showMessageDialog(null, "El estudiante fue eliminado de la base de datos exitosamente");
+            }
+
+        }
+        //Borrar el campo de texto
+        txtCedulaC.setText("");
+    }
+    public void Cerrar_BD(ObjectContainer basep) {
+
+        basep.close();
+    }
     /**
      * @param args the command line arguments
      */
@@ -210,13 +532,31 @@ public class ElimGer extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Jlabel3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> BuscarOpcion;
+    private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> cbNivel;
+    private javax.swing.JComboBox<String> cbPais;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtced;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblEstudiante1;
+    private javax.swing.JLabel txlApellido;
+    private javax.swing.JLabel txlCedula;
+    private javax.swing.JLabel txlCedulaC;
+    private javax.swing.JLabel txlContraseña;
+    private javax.swing.JLabel txlCorreo;
+    private javax.swing.JLabel txlNivel;
+    private javax.swing.JLabel txlNombre;
+    private javax.swing.JLabel txlPais;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtCedulaC;
+    private javax.swing.JPasswordField txtContraseña;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

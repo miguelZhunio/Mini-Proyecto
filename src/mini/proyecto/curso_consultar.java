@@ -23,6 +23,8 @@ public class curso_consultar extends javax.swing.JFrame {
      */
     public curso_consultar() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Consultar Curso");
     }
 
     /**

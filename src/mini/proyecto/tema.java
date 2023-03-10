@@ -19,7 +19,8 @@ public class tema extends javax.swing.JFrame {
     ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
     public tema() {
         initComponents();
-        // this.setLocationRelativeTo(null);
+         this.setLocationRelativeTo(null);
+         this.setTitle("Crear un tema");
     }
 
     /**

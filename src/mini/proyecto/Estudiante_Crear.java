@@ -41,6 +41,8 @@ public class Estudiante_Crear extends javax.swing.JFrame {
 
     public Estudiante_Crear() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Registro de Estudiantes");
         
 
     }

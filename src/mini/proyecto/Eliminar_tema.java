@@ -16,6 +16,8 @@ public class Eliminar_tema extends javax.swing.JFrame {
      */
     public Eliminar_tema() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Eliminar un Tema");
     }
 
     /**

@@ -5,7 +5,14 @@
  */
 package Profesor;
 
+
+import clases.Profesor;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+
 import javax.swing.JOptionPane;
+
 import mini.proyecto.MiniProyecto;
 
 /**
@@ -17,9 +24,23 @@ public class CreProfesor extends javax.swing.JFrame {
     /**
      * Creates new form RegProfesor
      */
+         String cedula = "";
+         String nombre = "";
+         String apellido= "";
+         String Pais = "";
+         String correo = "";
+         String password= "";
+         String Especialidad = "";
+         
+    private String cedula_per;
+    private Object Enuevo;
+         
     public CreProfesor() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setTitle("Registrar Profesor");
+         
+         
     }
 
     /**
@@ -48,12 +69,10 @@ public class CreProfesor extends javax.swing.JFrame {
         txtcorr = new javax.swing.JTextField();
         txtapell = new javax.swing.JTextField();
         pais = new javax.swing.JComboBox<>();
-        Gerencia = new javax.swing.JComboBox<>();
+        Mater = new javax.swing.JComboBox<>();
         txtpass = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,15 +186,15 @@ public class CreProfesor extends javax.swing.JFrame {
             }
         });
 
-        pais.setBackground(new java.awt.Color(0, 153, 153));
+        pais.setBackground(new java.awt.Color(153, 255, 255));
         pais.setFont(new java.awt.Font("Rockwell Extra Bold", 2, 12)); // NOI18N
         pais.setForeground(new java.awt.Color(0, 153, 153));
         pais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECUADOR", "PERU", "COLOMBIA", "VENEZUELA", "MEXIO", "CHILE" }));
 
-        Gerencia.setBackground(new java.awt.Color(0, 153, 153));
-        Gerencia.setFont(new java.awt.Font("Rockwell Extra Bold", 2, 12)); // NOI18N
-        Gerencia.setForeground(new java.awt.Color(0, 153, 153));
-        Gerencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "POO", "BD", "INGLES", "ALGEBRA" }));
+        Mater.setBackground(new java.awt.Color(0, 153, 153));
+        Mater.setFont(new java.awt.Font("Rockwell Extra Bold", 2, 12)); // NOI18N
+        Mater.setForeground(new java.awt.Color(0, 153, 153));
+        Mater.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "POO", "BD", "INGLES", "ALGEBRA" }));
 
         txtpass.setBackground(new java.awt.Color(0, 153, 153));
         txtpass.addActionListener(new java.awt.event.ActionListener() {
@@ -221,7 +240,7 @@ public class CreProfesor extends javax.swing.JFrame {
                     .addComponent(txtnom)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(pais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 124, Short.MAX_VALUE))
+                        .addGap(0, 119, Short.MAX_VALUE))
                     .addComponent(txtcedu, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtapell))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -232,8 +251,8 @@ public class CreProfesor extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(Gerencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(238, Short.MAX_VALUE))
+                        .addComponent(Mater, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,7 +290,7 @@ public class CreProfesor extends javax.swing.JFrame {
                     .addComponent(Jlabel5)
                     .addComponent(jLabel18)
                     .addComponent(txtapell, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Gerencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Mater, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -283,20 +302,6 @@ public class CreProfesor extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jTable1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 3, true));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -305,10 +310,7 @@ public class CreProfesor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 27, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -318,30 +320,24 @@ public class CreProfesor extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 829, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -394,7 +390,7 @@ public class CreProfesor extends javax.swing.JFrame {
         // TODO add your handling code here:
         char aux = evt.getKeyChar();
         char aux1 = evt.getKeyChar();
-        boolean Mayus = aux >= 65 && aux < 90;
+        boolean Mayus = aux >= 63 && aux < 90;
         boolean minus = aux1 >= 94 && aux1 < 122;
         boolean ret =aux == 8;
         boolean ent = aux == 13;
@@ -414,7 +410,7 @@ public class CreProfesor extends javax.swing.JFrame {
         // TODO add your handling code here:
         char aux = evt.getKeyChar();
         char aux1 = evt.getKeyChar();
-        boolean Mayus = aux >= 65 && aux < 90;
+        boolean Mayus = aux >= 6 && aux < 90;
         boolean minus = aux1 >= 94 && aux1 < 122;
         boolean ret =aux == 8;
         boolean ent = aux == 13;
@@ -446,9 +442,60 @@ public class CreProfesor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtpassKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
 
+        Crear_E(BaseD);
+        Cerrar_BD(BaseD);
+    }//GEN-LAST:event_jButton1ActionPerformed
+public void asignarVariables(ObjectContainer basep) {
+        cedula = txtcedu.getText();
+        nombre = txtnom.getText();
+        apellido = txtapell.getText();
+        Pais= pais.getSelectedItem().toString();
+        correo = txtcorr.getText();
+        password = txtpass.getText();
+        Especialidad= Mater.getSelectedItem().toString();
+    }
+    public void Crear_E(ObjectContainer basep) {   
+             Profesor Profesor = new Profesor ("especialidad_pro", "id_ger", "titulo_tra","fechaCobro_tra", "sueldo_tra","cedula_per","nombre_per","apellido_per", "pais_per","correo_per","password_per");
+
+            if (Comprobar_Profesor(basep, cedula_per) == 0) {
+                
+                basep.set(Enuevo);
+                JOptionPane.showMessageDialog(null, "El estudiante se guardo correctamente");
+                LimpiarCampos();
+            } else {
+
+                JOptionPane.showMessageDialog(null, "El estudiante ya existe");
+            }
+
+            txtcedu.setText("");
+    }
+    public static int Comprobar_Profesor(ObjectContainer basep, String cedula_per) {
+
+        Profesor Ebuscar = new Profesor(null, null, null, null, null, cedula_per, null, null ,null,null,null);
+
+        ObjectSet result = basep.get(Ebuscar);
+
+        return result.size();
+    }
+
+    public static void Cerrar_BD(ObjectContainer basep) {
+
+        basep.close();
+    }
+
+    public void LimpiarCampos() {
+        txtcedu.setText("");
+        txtnom.setText("");
+        txtapell.setText("");
+        pais.setSelectedIndex(0);
+        txtcorr.setText("");
+        txtpass.setText("");
+        Mater.setSelectedIndex(0);
+        
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -493,10 +540,10 @@ public class CreProfesor extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> Gerencia;
     private javax.swing.JLabel Jlabel3;
     private javax.swing.JLabel Jlabel4;
     private javax.swing.JLabel Jlabel5;
+    private javax.swing.JComboBox<String> Mater;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -508,8 +555,6 @@ public class CreProfesor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> pais;
     private javax.swing.JTextField txtapell;
     private javax.swing.JTextField txtcedu;
@@ -517,4 +562,6 @@ public class CreProfesor extends javax.swing.JFrame {
     private javax.swing.JTextField txtnom;
     private javax.swing.JPasswordField txtpass;
     // End of variables declaration//GEN-END:variables
+
+    
 }

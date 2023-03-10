@@ -23,6 +23,8 @@ public class curso_eliminar extends javax.swing.JFrame {
      */
     public curso_eliminar() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Eliminar Curso");
     }
 
     /**

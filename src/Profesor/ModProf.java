@@ -5,7 +5,12 @@
  */
 package Profesor;
 
+import clases.Profesor;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import javax.swing.JOptionPane;
+import static mini.proyecto.Estudiante_Modificar.Cerrar_BD;
 import mini.proyecto.MiniProyecto;
 
 /**
@@ -14,11 +19,20 @@ import mini.proyecto.MiniProyecto;
  */
 public class ModProf extends javax.swing.JFrame {
 
+         String cedula = "";
+         String nombre = "";
+         String apellido= "";
+         String Pais = "";
+         String correo = "";
+         String password= "";
+         String Especialidad = "";
     /**
      * Creates new form ModProf
      */
     public ModProf() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("MODIFICAR PROFESOR");
     }
 
     /**
@@ -34,10 +48,19 @@ public class ModProf extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        txtced = new javax.swing.JTextField();
+        txtnom = new javax.swing.JTextField();
         Jlabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Jlabel4 = new javax.swing.JLabel();
+        Jlabel5 = new javax.swing.JLabel();
+        Jlabel6 = new javax.swing.JLabel();
+        txtcedu = new javax.swing.JTextField();
+        txtapell = new javax.swing.JTextField();
+        txtcorr = new javax.swing.JTextField();
+        pais = new javax.swing.JComboBox<>();
+        Mater = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        modif = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,9 +69,14 @@ public class ModProf extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(51, 102, 255));
         jLabel1.setFont(new java.awt.Font("Rockwell", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel1.setText("Modificar Gerente");
+        jLabel1.setText("Modificar Profesor");
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Regresar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -57,15 +85,15 @@ public class ModProf extends javax.swing.JFrame {
             }
         });
 
-        txtced.setBackground(new java.awt.Color(153, 255, 255));
-        txtced.addActionListener(new java.awt.event.ActionListener() {
+        txtnom.setBackground(new java.awt.Color(153, 255, 255));
+        txtnom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtcedActionPerformed(evt);
+                txtnomActionPerformed(evt);
             }
         });
-        txtced.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtnom.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtcedKeyTyped(evt);
+                txtnomKeyTyped(evt);
             }
         });
 
@@ -73,18 +101,78 @@ public class ModProf extends javax.swing.JFrame {
         Jlabel3.setForeground(new java.awt.Color(0, 0, 153));
         Jlabel3.setText("Cedula: ");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        Jlabel4.setFont(new java.awt.Font("Rockwell Extra Bold", 3, 14)); // NOI18N
+        Jlabel4.setForeground(new java.awt.Color(0, 0, 153));
+        Jlabel4.setText("Nombre:");
+
+        Jlabel5.setFont(new java.awt.Font("Rockwell Extra Bold", 3, 14)); // NOI18N
+        Jlabel5.setForeground(new java.awt.Color(0, 0, 153));
+        Jlabel5.setText("Apellido:");
+
+        Jlabel6.setFont(new java.awt.Font("Rockwell Extra Bold", 3, 14)); // NOI18N
+        Jlabel6.setForeground(new java.awt.Color(0, 0, 153));
+        Jlabel6.setText("Correo:");
+
+        txtcedu.setBackground(new java.awt.Color(153, 255, 255));
+        txtcedu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtceduActionPerformed(evt);
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        });
+        txtcedu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtceduKeyTyped(evt);
+            }
+        });
+
+        txtapell.setBackground(new java.awt.Color(153, 255, 255));
+        txtapell.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtapellActionPerformed(evt);
+            }
+        });
+        txtapell.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtapellKeyTyped(evt);
+            }
+        });
+
+        txtcorr.setBackground(new java.awt.Color(153, 255, 255));
+        txtcorr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcorrActionPerformed(evt);
+            }
+        });
+        txtcorr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcorrKeyTyped(evt);
+            }
+        });
+
+        pais.setBackground(new java.awt.Color(0, 153, 153));
+        pais.setFont(new java.awt.Font("Rockwell Extra Bold", 2, 12)); // NOI18N
+        pais.setForeground(new java.awt.Color(0, 153, 153));
+        pais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ECUADOR", "PERU", "COLOMBIA", "VENEZUELA", "MEXIO", "CHILE" }));
+
+        Mater.setBackground(new java.awt.Color(0, 153, 153));
+        Mater.setFont(new java.awt.Font("Rockwell Extra Bold", 2, 12)); // NOI18N
+        Mater.setForeground(new java.awt.Color(0, 153, 153));
+        Mater.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "POO", "BD", "INGLES", "ALGEBRA" }));
+
+        jLabel17.setFont(new java.awt.Font("Rockwell Extra Bold", 3, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel17.setText("Pais:");
+
+        jLabel18.setFont(new java.awt.Font("Rockwell Extra Bold", 3, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel18.setText("Especialidad");
+
+        modif.setText("Modificar");
+        modif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,58 +180,104 @@ public class ModProf extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(Jlabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addComponent(Jlabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtced, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtcedu, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(104, 104, 104)
-                .addComponent(jButton2)
-                .addGap(64, 64, 64))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(modif)
+                .addGap(146, 146, 146))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Jlabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtcorr, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(318, 318, 318))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Jlabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Jlabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtapell, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtnom, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Mater, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(Jlabel3)
+                        .addComponent(txtcedu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(modif))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(txtced, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Jlabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(Jlabel4)
+                    .addComponent(txtnom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Jlabel5)
+                    .addComponent(txtapell, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Mater, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Jlabel6)
+                    .addComponent(txtcorr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(173, 173, 173))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtcedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcedActionPerformed
+    private void txtnomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtcedActionPerformed
+    }//GEN-LAST:event_txtnomActionPerformed
 
-    private void txtcedKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcedKeyTyped
+    private void txtnomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnomKeyTyped
         // TODO add your handling code here:
         char aux = evt.getKeyChar();
         boolean ced = aux >= 48 && aux < 58;
@@ -153,10 +287,10 @@ public class ModProf extends javax.swing.JFrame {
         if (ced == false&& ret== false && ent== false ) {
             JOptionPane.showMessageDialog(null, "El dato:\n " + "-> "+evt.getKeyChar()+"<-\n"+"No esta Permitido");
             evt.consume();
-        } else if (txtced.getText().length() >= 10) {
+        } else if (txtnom.getText().length() >= 10) {
             evt.consume();
         }
-    }//GEN-LAST:event_txtcedKeyTyped
+    }//GEN-LAST:event_txtnomKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -165,6 +299,141 @@ public class ModProf extends javax.swing.JFrame {
         mini.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void txtceduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtceduActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtceduActionPerformed
+
+    private void txtceduKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtceduKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtceduKeyTyped
+
+    private void txtapellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtapellActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtapellActionPerformed
+
+    private void txtapellKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtapellKeyTyped
+
+    private void txtcorrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcorrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcorrActionPerformed
+
+    private void txtcorrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcorrKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcorrKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        buscar(BaseD);
+        Cerrar_BD(BaseD);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void modifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifActionPerformed
+        // TODO add your handling code here:
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        Modificar_Profesor(BaseD);
+        Cerrar_BD(BaseD);
+        txtcedu.setEditable(true);
+    }//GEN-LAST:event_modifActionPerformed
+public void buscar(ObjectContainer basep) {//cargardatos
+
+        modif.setEnabled(false);
+        String IDAux;
+        IDAux = txtcedu.getText();
+
+        CreProfesor EAux = new CreProfesor();
+
+        if (txtcedu.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Ingrese una cedula");
+        } else {
+
+            if (EAux.Comprobar_Profesor (basep, IDAux) == 0) {
+
+                JOptionPane.showMessageDialog(null, "El estudiante no existe en la base de datos");
+                LimpiarCamposdeTexto();
+
+            } else {
+
+                Profesor Ebuscar = new Profesor (null, null, IDAux, null, null, null, null, null,null,null,null);
+
+                ObjectSet result = basep.get(Ebuscar);
+                for (int i = 0; i < result.size(); i++) {
+
+                    Profesor miE = new Profesor();
+
+                    miE = (Profesor) result.get(i);
+
+                    txtnom.setText(miE.getNombre_per());
+                    txtapell.setText(miE.getApellido_per());
+                    pais.setSelectedItem(miE.getPais_per());
+                    txtcorr.setText(miE.getCorreo_per());
+                    Mater.setSelectedIndex(WIDTH);
+                }
+
+                //Hacer editable los campos de texto
+                HabilitarCampos_deTexto();
+                txtcedu.setEditable(false);
+            }
+
+        }
+
+    }
+
+    public void asignarVariables(ObjectContainer basep) {
+        cedula = txtcedu.getText();
+        nombre = txtnom.getText();
+        apellido = txtapell.getText();
+        Pais = pais.getSelectedItem().toString();
+        correo = txtcorr.getText();
+        password= txtcorr.getText();
+        Especialidad= Mater.getSelectedItem().toString();
+       
+        
+    }
+    public void Modificar_Profesor(ObjectContainer basep) {
+            
+                Profesor Emodi = new Profesor (null, null, null, null, null, txtcedu.getText(), null, null ,null,null,null);
+                ObjectSet result = basep.get(Emodi);
+                Profesor Emodificar = (Profesor) result.next();
+                Emodificar.setNombre_per(txtnom.getText());
+                Emodificar.setApellido_per(txtnom.getText());
+                Emodificar.setPais_per(pais.getSelectedItem().toString());
+                Emodificar.setCorreo_per(txtnom.getText());
+                Emodificar.setPassword_per(txtnom.getText());
+                Emodificar.setEspecialidad_pro(Mater.getSelectedItem().toString());
+                basep.set(Emodificar);
+                JOptionPane.showMessageDialog(null, "El estudiante fue modificado exitosamente");
+                LimpiarCamposdeTexto();
+            
+    }
+                                               
+    public static void Cerrar_BD(ObjectContainer basep) {
+
+        basep.close();
+    }
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+    public void LimpiarCamposdeTexto() {
+        txtcedu.setText("");
+        txtnom.setText("");
+        txtapell.setText("");
+        pais.setSelectedIndex(0);
+        txtcorr.setText("");
+        Mater.setSelectedIndex(0);
+    }
+
+    public void HabilitarCampos_deTexto() {
+        txtcedu.setEditable(true);
+        txtnom.setEditable(true);
+        txtapell.setEditable(true);
+        pais.setEditable(true);
+        txtcorr.setEditable(true);
+        Mater.setEditable(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -202,12 +471,23 @@ public class ModProf extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Jlabel3;
+    private javax.swing.JLabel Jlabel4;
+    private javax.swing.JLabel Jlabel5;
+    private javax.swing.JLabel Jlabel6;
+    private javax.swing.JComboBox<String> Mater;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtced;
+    private javax.swing.JButton modif;
+    private javax.swing.JComboBox<String> pais;
+    private javax.swing.JTextField txtapell;
+    private javax.swing.JTextField txtcedu;
+    private javax.swing.JTextField txtcorr;
+    private javax.swing.JTextField txtnom;
     // End of variables declaration//GEN-END:variables
+
+   
 }

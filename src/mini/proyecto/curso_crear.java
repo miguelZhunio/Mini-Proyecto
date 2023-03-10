@@ -32,6 +32,8 @@ public class curso_crear extends javax.swing.JFrame {
     String cod_car= "";     
     public curso_crear() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Crear Curso");
     } 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

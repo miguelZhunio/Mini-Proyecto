@@ -16,6 +16,8 @@ public class Consultar_tema extends javax.swing.JFrame {
      */
     public Consultar_tema() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Consultas");
     }
 
     /**
