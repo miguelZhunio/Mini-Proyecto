@@ -75,7 +75,6 @@ public class MiniProyecto extends javax.swing.JFrame {
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
         jMenu11 = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
@@ -221,7 +220,7 @@ public class MiniProyecto extends javax.swing.JFrame {
         });
         jMenu10.add(jMenuItem15);
 
-        jMenuItem17.setText("Consultar");
+        jMenuItem17.setText("Consultar y Eliminar");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem17ActionPerformed(evt);
@@ -236,14 +235,6 @@ public class MiniProyecto extends javax.swing.JFrame {
             }
         });
         jMenu10.add(jMenuItem16);
-
-        jMenuItem18.setText("Eliminar");
-        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem18ActionPerformed(evt);
-            }
-        });
-        jMenu10.add(jMenuItem18);
 
         jMenu2.add(jMenu10);
 
@@ -371,12 +362,6 @@ public class MiniProyecto extends javax.swing.JFrame {
         c.setVisible(true);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
-    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        this.dispose();
-        Carrera_Eliminar c = new Carrera_Eliminar();
-        c.setVisible(true);
-    }//GEN-LAST:event_jMenuItem18ActionPerformed
-
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem21ActionPerformed
@@ -488,7 +473,6 @@ public class MiniProyecto extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;

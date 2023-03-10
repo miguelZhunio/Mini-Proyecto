@@ -5,6 +5,11 @@
  */
 package mini.proyecto;
 
+import clases.Carrera;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import javax.swing.JOptionPane;
 import mini.proyecto.MiniProyecto;
 
 /**
@@ -13,9 +18,10 @@ import mini.proyecto.MiniProyecto;
  */
 public class V_Carrera extends javax.swing.JFrame {
 
-    /**
-     * Creates new form V_Carrera
-     */
+    String cod_car;
+    String nombre_car;
+    String duracion_car;
+    String descripcion;
     public V_Carrera() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -31,35 +37,40 @@ public class V_Carrera extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         txtDuracion = new javax.swing.JTextField();
-        txtDescripcion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        taDes = new java.awt.TextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Carrera");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 110, -1));
+        jLabel1.setText("Crear Carrera");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 190, -1));
 
-        jButton4.setText("Crear");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 130, 50));
-
-        jButton5.setText("Regresar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnCrearActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, -1));
+        jPanel1.add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 130, 50));
+
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, -1));
 
         jLabel3.setText("Codigo:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
@@ -71,33 +82,74 @@ public class V_Carrera extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 120, -1));
         jPanel1.add(txtDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 120, -1));
-        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 120, 30));
 
         jLabel2.setText("Nombre:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 120, -1));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 120, -1));
+        jPanel1.add(taDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 280, 90));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         
         this.dispose();
         MiniProyecto m = new MiniProyecto();
         m.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+
+        Crear_E(BaseD);
+        Cerrar_BD(BaseD);
+    }//GEN-LAST:event_btnCrearActionPerformed
+    public void Crear_E(ObjectContainer basep) {
+        asignarVariables(basep);
+        
+            if (Comprobar_Carrera(basep, cod_car) == 0) {
+                Carrera Anueva = new Carrera(cod_car,nombre_car,duracion_car,descripcion);
+                basep.set(Anueva);
+                JOptionPane.showMessageDialog(null, "Carrera registrada correctamente");
+                LimpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "La Carrera ya existe", "ERROR", 0);
+//                JOptionPane.showMessageDialog(this, "La asignatura ya existe");
+            }
+        
+    }
+    public static int Comprobar_Carrera(ObjectContainer basep, String cod_car) {
+        Carrera Abuscar = new Carrera(cod_car,null,null,null);
+        ObjectSet result = basep.get(Abuscar);
+        return result.size();
+    }
+    public void asignarVariables(ObjectContainer basep) {
+        cod_car = txtCodigo.getText();
+        nombre_car = txtNombre.getText();
+        duracion_car = txtDuracion.getText();
+        descripcion = taDes.getText();
+    }
+    public static void Cerrar_BD(ObjectContainer basep) {
+
+        basep.close();
+    }
+    public void LimpiarCampos() {
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtDuracion.setText("");
+        taDes.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -134,17 +186,17 @@ public class V_Carrera extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private java.awt.TextArea taDes;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtDuracion;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

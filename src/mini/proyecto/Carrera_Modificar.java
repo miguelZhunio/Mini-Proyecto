@@ -4,6 +4,12 @@
  */
 package mini.proyecto;
 
+import clases.Carrera;
+import clases.Validaciones;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import javax.swing.JOptionPane;
 import mini.proyecto.MiniProyecto;
 
 /**
@@ -11,6 +17,11 @@ import mini.proyecto.MiniProyecto;
  * @author IV
  */
 public class Carrera_Modificar extends javax.swing.JFrame {
+    String cod_car = "";
+    String nombre_car = "";
+    String duracion_car = "";
+    String descripcion = "";
+            
 
     /**
      * Creates new form Carrera_Modificar
@@ -31,21 +42,37 @@ public class Carrera_Modificar extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
-        btnConsultar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        txtDuracion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtCodigoConsultar = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        txtNombre = new javax.swing.JTextField();
+        taDes = new java.awt.TextArea();
+        BuscarB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Carrera");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 110, -1));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setText("Modificar Carrera");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 250, -1));
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 130, 70));
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -53,51 +80,126 @@ public class Carrera_Modificar extends javax.swing.JFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, -1));
+        jPanel2.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 100, -1));
 
-        btnConsultar.setText("Modificar");
-        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+        jLabel4.setText("Codigo:");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+
+        jLabel5.setText("Duracion:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+
+        jLabel6.setText("Descripcion:");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
+        jPanel2.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 120, -1));
+        jPanel2.add(txtDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 120, -1));
+
+        jLabel2.setText("Nombre:");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+        jPanel2.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 120, -1));
+        jPanel2.add(taDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 280, 90));
+
+        BuscarB.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        BuscarB.setForeground(new java.awt.Color(0, 0, 255));
+        BuscarB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lupa.png"))); // NOI18N
+        BuscarB.setToolTipText("Buscar");
+        BuscarB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarActionPerformed(evt);
+                BuscarBActionPerformed(evt);
             }
         });
-        jPanel1.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 130, 50));
+        jPanel2.add(BuscarB, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, -1));
 
-        jLabel2.setText("Codigo:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
-        jPanel1.add(txtCodigoConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 120, -1));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, 90));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 550, 340));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        Modificar_Carrera(BaseD);
+        Cerrar_BD(BaseD);
+        txtCodigo.setEnabled(true);
+    }//GEN-LAST:event_btnModificarActionPerformed
+    public void CargarDatos(ObjectContainer basep) {
+
+        btnModificar.setEnabled(false);
+        String cod_car;
+        cod_car = txtCodigo.getText();
+
+        V_Carrera Aaux = new V_Carrera();
+        if (txtCodigo.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Ingrese el codigo de la carrera");
+        } else {
+            if (Aaux.Comprobar_Carrera(basep, cod_car) == 0) {
+
+                JOptionPane.showMessageDialog(null, "La carrera no existe en la base de datos");
+                LimpiarCamposdeTexto();
+
+            } else {
+
+                Carrera Abuscar = new Carrera(cod_car, null, null,null);
+                ObjectSet result = basep.get(Abuscar);
+                for (int i = 0; i < result.size(); i++) {
+
+                    Carrera miA = new Carrera();
+                    miA = (Carrera) result.get(i);
+
+                    txtCodigo.setText(miA.getCod_car());
+                    txtNombre.setText(miA.getNombre_car());
+                    txtDuracion.setText(miA.getDuracion_car());
+                    taDes.setText(miA.getDescripcion());
+                }
+                if (validarCampos(basep)) {
+                    btnModificar.setEnabled(true);
+                }
+
+                //Hacer editable los campos de texto
+                HabilitarCampos_deTexto();
+                txtCodigo.setEnabled(false);
+            }
+
+        }
+
+    }
+    public boolean validarCampos(ObjectContainer basep) {
+        Validaciones miValidaciones = new Validaciones();
+        asignarVariables(basep);
+        boolean ban_confirmar = true;
+
+        if (txtCodigo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un Codigo");
+            ban_confirmar = false;
+        }
+        if (txtNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre de la carrera");
+            ban_confirmar = false;
+        }
+        if (txtDuracion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la duracion de la carrera");
+            ban_confirmar = false;
+        }
+        if (taDes.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la descipcion de la carrera");
+            ban_confirmar = false;
+        }
+
+        return ban_confirmar;
+    }
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
 
         this.dispose();
@@ -105,10 +207,52 @@ public class Carrera_Modificar extends javax.swing.JFrame {
         m.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConsultarActionPerformed
+    private void BuscarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBActionPerformed
 
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        CargarDatos(BaseD);
+        Cerrar_BD(BaseD);
+    }//GEN-LAST:event_BuscarBActionPerformed
+    public void asignarVariables(ObjectContainer basep) {
+        cod_car = txtCodigo.getText();
+        nombre_car = txtNombre.getText();
+        duracion_car = txtDuracion.getText();
+        descripcion = taDes.getText();
+        
+    }
+    public void Modificar_Carrera(ObjectContainer basep) {
+        asignarVariables(basep);
+        
+            Carrera Amodi = new Carrera(cod_car, null, null,null);
+            ObjectSet result = basep.get(Amodi);
+            Carrera Amodificar = (Carrera) result.next();
+            
+                        Amodificar.setNombre_car(nombre_car);
+                        Amodificar.setDuracion_car(duracion_car);
+                        Amodificar.setDescripcion(descripcion);
+                        basep.set(Amodificar);
+                        JOptionPane.showMessageDialog(null, "Carrera modificada exitosamente");
+                        LimpiarCamposdeTexto();
+            
+        
+    }
+    public static void Cerrar_BD(ObjectContainer basep) {
+
+        basep.close();
+    }
+
+    public void LimpiarCamposdeTexto() {
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtDuracion.setText("");
+        taDes.setText("");
+    }
+
+    public void HabilitarCampos_deTexto() {
+        txtNombre.setEnabled(true);
+        txtDuracion.setEnabled(true);
+        taDes.setEnabled(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -145,13 +289,19 @@ public class Carrera_Modificar extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton BuscarB;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtCodigoConsultar;
+    private javax.swing.JPanel jPanel2;
+    private java.awt.TextArea taDes;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtDuracion;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
