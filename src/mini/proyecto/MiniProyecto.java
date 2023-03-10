@@ -16,24 +16,25 @@ import com.db4o.ObjectContainer;
  */
 public class MiniProyecto extends javax.swing.JFrame {
     //COLOCAR LA DIRECCION DE LA BASE DE DATOS
-    //public static String direccionBD=("C:\\Base\\BDA.yap");
-    public static String direccionBD = ("C:\\Base\\BDA.yap");
-
+    public static String direccionBD;
+    //public static String direccionBD = ("C:\\Base\\BDA.yap");
+    //public static String direccionBD = ("C:\\Users\\David\\Desktop\\BDA.yap");//Con esta dir funciona en mi pc Isaac
+    //ObjectContainer Base = Db4o.openFile("C:\\Users\\David\\Desktop\\BDA.yap");
     /**
      * Creates new form MiniProyecto
      */
     public MiniProyecto() {
-        initComponents();
-        this.setLocationRelativeTo(null);
+        
         this.setTitle("Mini Proyecto");
-        if(System.getProperty("os.name").startsWith("Windows")){
-            direccionBD=("C:\\Base\\BDA.yap");
-        }
         
-        //ObjectContainer Base = Db4o.openFile("C:\\Users\\David\\Desktop\\BDA.yap");
-        
-        
-    }
+        if (System.getProperty("os.name").startsWith("Windows")){
+            direccionBD = ("C:\\Base\\BDA.yap");
+        }else if (System.getProperty("os.name").toLowerCase().startsWith("linux")){
+            direccionBD = ("//home//vaioz//BBDD");
+            }
+    initComponents();
+    this.setLocationRelativeTo(null);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
