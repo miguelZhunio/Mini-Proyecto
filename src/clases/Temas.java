@@ -1,6 +1,7 @@
 package clases;
 
 import java.io.File;
+import javax.swing.JButton;
 
 /**
  *
@@ -21,6 +22,10 @@ public class Temas {
         this.titulo_tem = titulo_tem;
         this.contenido = contenido;
         this.cod_cur = cod_cur;
+    }
+
+    public Temas(JButton txtCodigo, Object object, Object object0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
  
     /**
