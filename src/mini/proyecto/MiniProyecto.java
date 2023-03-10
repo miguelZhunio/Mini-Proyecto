@@ -115,7 +115,7 @@ public class MiniProyecto extends javax.swing.JFrame {
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, 330, 50));
 
-        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mini/proyecto/aw.jpg"))); // NOI18N
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mini/proyecto/iconosE/aw.jpg"))); // NOI18N
         jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 520));
 
         jMenu1.setText("Usuarios");
