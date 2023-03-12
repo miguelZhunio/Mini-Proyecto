@@ -1,5 +1,7 @@
 package clases;
 
+import com.db4o.ObjectContainer;
+
 /**
  *
  * @author Zhunio Miguel
@@ -8,15 +10,17 @@ public class Curso {
     private String cod_cur;
     private String nombre_cur;
     private String duracion;
-    private double precio;
+    private double precio ;
     private String silabo;
     private String deescripcion;
     private String id_pro;
     private String cod_car;
+    
 
-    public Curso() {
-        
+    
+    public Curso() {       
     }
+    
     public Curso(String cod_cur, String nombre_cur, String duracion, double precio, String silabo, String deescripcion, String id_pro, String cod_car) {
         this.cod_cur = cod_cur;
         this.nombre_cur = nombre_cur;
@@ -140,7 +144,8 @@ public class Curso {
     public void setCod_car(String cod_car) {
         this.cod_car = cod_car;
     }
-    
+
+ 
 
     
 }

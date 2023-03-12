@@ -24,6 +24,7 @@ public class curso_modificar extends javax.swing.JFrame {
     String deescripcion = "";
     String id_pro = "";
     String cod_car= "";
+    String convertir = String.valueOf(precio);
     
     public curso_modificar() {
         initComponents();
@@ -125,6 +126,11 @@ public class curso_modificar extends javax.swing.JFrame {
         jPanel1.add(txtCodigoConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 130, -1));
 
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, 50));
 
         jLabel11.setText("Descripcion:");
@@ -245,52 +251,49 @@ public class curso_modificar extends javax.swing.JFrame {
         Cerrar_BD(BaseD);
         txtCodigoConsultar.setEditable(true);
     }//GEN-LAST:event_btnModificarActionPerformed
-    public void buscar(ObjectContainer basep) {//cargardatos
 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
+        buscar(BaseD);
+        Cerrar_BD(BaseD);
+        
+    }//GEN-LAST:event_btnConsultarActionPerformed
+    public void buscar(ObjectContainer basep) {//cargardatos
         btnModificar.setEnabled(false);
         String IDAux;
         IDAux = txtCodigoConsultar.getText();
 
         curso_crear EAux = new curso_crear();
 
-        if (txtnombre.getText().isEmpty()) {
+        if (txtCodigoConsultar.getText().isEmpty()) {
 
-            JOptionPane.showMessageDialog(null, "INGRESE UN NOMBRE");
+            JOptionPane.showMessageDialog(null, "INGRESE UN CODIGO");
         } else {
-
             if (EAux.Comprobar_Cursos(basep, IDAux) == 0) {
-
                 JOptionPane.showMessageDialog(null, "EL CURSO NO EXISTE EN LA BASE DE DATOS");
                 LimpiarCamposdeTexto();
-
             } else {
-
                 Curso CursoBuscar = new Curso(null, null, IDAux, 0, null, null, null, null);
 
                 ObjectSet result = basep.get(CursoBuscar);
                 for (int i = 0; i < result.size(); i++) {
 
                     Curso miC = new Curso();
-
                     miC = (Curso) result.get(i);
 
                     txtnombre.setText(miC.getNombre_cur());
-                    txtprecio.setText(miC.getDuracion());
+                    txtprecio.setText(String.valueOf(miC.getPrecio()));
                     txtduracion.setText(miC.getDuracion());
                     txtDescripcion.setText(miC.getDeescripcion());
-                    txtSilabo.setText(miC.getSilabo());
-                    ;
+                    txtSilabo.setText(miC.getSilabo());                    
                 }
-
                 //Hacer editable los campos de texto
                 HabilitarCampos_deTexto();
                 txtCodigoConsultar.setEditable(false);
             }
-
         }
-
     }
-
     public void asignarVariables(ObjectContainer basep) {
         cod_cur = txtCodigoConsultar.getText();
         nombre_cur = txtnombre.getText();
@@ -299,38 +302,27 @@ public class curso_modificar extends javax.swing.JFrame {
         deescripcion = txtDescripcion.getText();
         silabo = txtSilabo.getText();
     }
-    public void Modificar_Curso(ObjectContainer basep) {
-            
+    public void Modificar_Curso(ObjectContainer basep) {            
                 Curso Cmodi = new Curso(null, null, txtCodigoConsultar.getText(), 0, null,null,null, null);
                 ObjectSet result = basep.get(Cmodi);
                 Curso CursoModificar = (Curso) result.next();
                 CursoModificar.setNombre_cur(txtnombre.getText());
-                CursoModificar.setPrecio(txtprecio.getText());
+                CursoModificar.setPrecio(Double.parseDouble(txtprecio.getText()));
                 CursoModificar.setDuracion(txtduracion.getText());
                 CursoModificar.setDeescripcion(txtDescripcion.getText());
                 CursoModificar.setSilabo(txtSilabo.getText());
                 JOptionPane.showMessageDialog(null, "El CURSO FUE MODIFICADO CORRECTAMENTE");
-                LimpiarCamposdeTexto();
-            
-    }
-                                          
-    public static void Cerrar_BD(ObjectContainer basep) {
-
-        basep.close();
-    }
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
+                LimpiarCamposdeTexto();           
+    }                                           
+                                           
     public void LimpiarCamposdeTexto() {
         txtCodigoConsultar.setText("");
         txtnombre.setText("");
         txtduracion.setText("");
-        txtprecio.setText(0);
+        txtprecio.setText("");
         txtDescripcion.setText("");
-        txtSilabo.setText("");
-        
+        txtSilabo.setText("");       
     }
-
     public void HabilitarCampos_deTexto() {
         txtCodigoConsultar.setEditable(true);
         txtnombre.setEditable(true);
@@ -338,12 +330,10 @@ public class curso_modificar extends javax.swing.JFrame {
         txtprecio.setEditable(true);
         txtDescripcion.setEditable(true);
         txtSilabo.setEditable(true);
-
-    }
-   
-    
-    
-    
+    }        
+    public static void Cerrar_BD(ObjectContainer basep) {
+        basep.close();
+    }    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnModificar;

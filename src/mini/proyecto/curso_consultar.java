@@ -21,13 +21,11 @@ import static mini.proyecto.Estudiante_Crear.Cerrar_BD;
  * @author PC01
  */
 public class curso_consultar extends javax.swing.JFrame {
-
+   
     
     public curso_consultar() {
         initComponents();
-    }
-
-    
+    }  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,7 +65,7 @@ public class curso_consultar extends javax.swing.JFrame {
                 btnConsultarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 110, 50));
+        jPanel1.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 110, 50));
 
         tablaConsultar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,7 +93,7 @@ public class curso_consultar extends javax.swing.JFrame {
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 740, 120));
 
         jLabel2.setText("ID Curso:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
 
         txtcodigoC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtcodigoC.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -103,7 +101,7 @@ public class curso_consultar extends javax.swing.JFrame {
                 txtcodigoCKeyTyped(evt);
             }
         });
-        jPanel1.add(txtcodigoC, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 130, 30));
+        jPanel1.add(txtcodigoC, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 130, 30));
 
         Eliminar.setText("Eliminar");
         Eliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -114,7 +112,7 @@ public class curso_consultar extends javax.swing.JFrame {
         });
         jPanel1.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, 110, 50));
 
-        BuscarOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "Ver todos", "Codigo Curso", "Buscar Parametros" }));
+        BuscarOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "Ver todos", "Codigo Curso", "Nombre", "Duracion" }));
         BuscarOpcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BuscarOpcionActionPerformed(evt);
@@ -146,32 +144,13 @@ public class curso_consultar extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
-        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);
-        try {
-            BuscarCurso_id(BaseD);
-        } catch (ParseException ex) {
-            java.util.logging.Logger.getLogger(Estudiante_Consultar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        Cerrar_BD(BaseD);
+        ObjectContainer BaseD = Db4o.openFile(MiniProyecto.direccionBD);       
+            Filtro(BaseD);
+            Cerrar_BD(BaseD);
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void BuscarOpcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarOpcionActionPerformed
 
-          if (BuscarOpcion.getSelectedIndex() == 0) {
-            deshabilitarParametros();
-        } else {
-            if (BuscarOpcion.getSelectedIndex() == 1) {
-                deshabilitarParametros();
-            } else {
-                if (BuscarOpcion.getSelectedIndex() == 2) {
-                    deshabilitarParametros();
-                } else {
-                    if (BuscarOpcion.getSelectedIndex() == 3) {
-                        habilitarParametros();
-                    }
-                }
-            }
-        }
     }//GEN-LAST:event_BuscarOpcionActionPerformed
 
     private void txtcodigoCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoCKeyTyped
@@ -191,97 +170,83 @@ public class curso_consultar extends javax.swing.JFrame {
         Eliminar_Curso(BaseD);
         Cerrar_BD(BaseD);
     }//GEN-LAST:event_EliminarActionPerformed
-    public void BuscarCurso_id(ObjectContainer basep) throws ParseException {
-
+    
+    public void Filtro(ObjectContainer basep) {       
         if (BuscarOpcion.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Selección invalida");
-//            deshabilitarParametros();
+            JOptionPane.showMessageDialog(null, "SELECCIONA UNA OPCION");
         } else {
-            if (BuscarOpcion.getSelectedIndex() == 1) {
-//                deshabilitarParametros();
-                Curso Cbuscar = new Curso(null, null, null, 0, null, null, null, null);
 
+            if (BuscarOpcion.getSelectedIndex() == 1) {
+                Curso Cbuscar = new Curso(null, null,null,0,null,null, null,null);
                 ObjectSet result = basep.get(Cbuscar);
                 MostrarDatos(result);
+
             } else {
                 if (BuscarOpcion.getSelectedIndex() == 2) {
-//                    deshabilitarParametros();
-                    String IDAux = JOptionPane.showInputDialog("Ingrese la cedula a consultar");
-//Ojo
-                    Curso Cbuscar = new Curso(null, null, null, 0, null, null, null, null);
-
+                    String cod_cur = JOptionPane.showInputDialog("INGRESE EL CODIGO A CONSULTAR");
+                    Curso Cbuscar = new Curso(cod_cur,null,null,0,null,null,null,null);
                     ObjectSet result = basep.get(Cbuscar);
                     MostrarDatos(result);
-
                 } else {
                     if (BuscarOpcion.getSelectedIndex() == 3) {
-//                      habilitarParametros();
-                        BuscarParametros(basep);
+                        String nombre_cur = JOptionPane.showInputDialog("INGRES EL NOMBRE DEL CURSO A CONSULTAR");
+                        Curso Cbuscar = new Curso(null,nombre_cur,null,0, null,null,null,null);
+                        ObjectSet result = basep.get(Cbuscar);
+                        MostrarDatos(result);
+
+                    } else {
+                        if (BuscarOpcion.getSelectedIndex() == 4) {
+                            String duracion = JOptionPane.showInputDialog("INGRESA LA DURACION DEL CURSO QUE DESEAS CONSULTAT");
+                                Curso Cbuscar = new Curso(null,null,duracion,0,null, null, null,null);
+                                ObjectSet result = basep.get(Cbuscar);
+                                MostrarDatos(result);                           
+                        }
                     }
                 }
             }
         }
-
         //Borrar la eleccion y ponerla al inicio
         BuscarOpcion.setSelectedIndex(0);
     }
-    public void habilitarParametros() {
-        
-        
-    }
-    public void deshabilitarParametros() {
-        
-    }
-    public void BuscarParametros(ObjectContainer basep) throws ParseException {
-        
-    }
     public void MostrarDatos(ObjectSet result) {
-        String matrizescursos[][] = new String[result.size()][8];
+        String matrizesCurso[][] = new String[result.size()][8];
 
         if (result.size() == 0) {
-            JOptionPane.showMessageDialog(null, "El CURSO NO SE ENCUENTRA EN LA BASE DE DATOS!!");
+            JOptionPane.showMessageDialog(null, "EL CURSO NO EXISTE");
         } else {
             for (int i = 0; i < result.size(); i++) {
+                Curso miCurso = new Curso();
 
-                Curso miC = new Curso();
+                miCurso = (Curso) result.get(i);
+                matrizesCurso[i][0] = miCurso.getCod_cur();
+                matrizesCurso[i][1] = miCurso.getNombre_cur();
+                matrizesCurso[i][2] = miCurso.getDuracion();
+                matrizesCurso[i][3] = String.valueOf(miCurso.getPrecio());
+                matrizesCurso[i][4] = miCurso.getSilabo();
+                matrizesCurso[i][5] = miCurso.getDeescripcion();
+                matrizesCurso[i][6] = miCurso.getId_pro();
+                matrizesCurso[i][7] = miCurso.getCod_car();
 
-                miC = (Curso) result.get(i);
-                matrizescursos[i][0] = miC.getId_pro();
-                matrizescursos[i][1] = miC.getNombre_cur();
-                matrizescursos[i][2] = miC.getPrecio();
-                matrizescursos[i][3] = miC.getDuracion();
-                matrizescursos[i][4] = miC.getSilabo();
-                matrizescursos[i][5] = miC.getDeescripcion();
-                matrizescursos[i][6] = miC.getCod_car();
-                matrizescursos[i][7] = miC.getId_pro();
-
-                tablaConsultar.setModel(new javax.swing.table.DefaultTableModel(matrizescursos, new String[]{"Codigo Curso", "Nombre", "Precio", "Duracion", "Silabo","Descripcion", "Codigo Carrera", "ID_Producto"}));
-
+                tablaConsultar.setModel(new javax.swing.table.DefaultTableModel(matrizesCurso, new String[]{"Codigo Curso", "Nombre", "Duracion","Precio","Silabo","Descripcion","ID Profesor","Codigo Carrera"}));
             }
         }
-
     }
     public void Eliminar_Curso(ObjectContainer basep) {
-
-        Curso Cinterfaz = new Curso();//Crear un objeto de la clase Estudiantes para traer el metodo Comprobar_Estudiantes
-
+        curso_crear Ainterfaz = new curso_crear();
         if (txtcodigoC.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "ID no valido");
+            JOptionPane.showMessageDialog(null, "INGRESE UN CODIGO");
         } else {
+            String IDA = txtcodigoC.getText();
+            Curso Cbuscar = new Curso(IDA, null,null,0,null,null,null,null);
+            ObjectSet result = basep.get(Cbuscar);
 
-            String txtCodigoCo = txtcodigoC.getText();
-            Curso cursoElim = new Curso(txtCodigoCo,null, null, 0, null, null, null, null);
-            ObjectSet result = basep.get(cursoElim);
-
-            if (Cinterfaz.Comprobar_Cursos(basep, txtCodigoCo) == 0) {
-
+            if (Ainterfaz.Comprobar_Cursos(basep, IDA) == 0) {
                 JOptionPane.showMessageDialog(null, "EL CURSO NO EXISTE EN LA BASE DE DATOS");
 
             } else {
-                Curso Cursoeliminar = (Curso) result.next();
-
-                basep.delete(Cursoeliminar);
-                JOptionPane.showMessageDialog(null, "EL CURSO FUE ELIMINADO DE LA BASE DE DATOS CORRECTAMENTE");
+                Curso EliminarCurso = (Curso) result.next();
+                basep.delete(EliminarCurso);
+                JOptionPane.showMessageDialog(null, "EL CURSO FUE ELIMINADO CORRECTAMENTE");
             }
         }
         //Borrar el campo de texto
@@ -292,6 +257,7 @@ public class curso_consultar extends javax.swing.JFrame {
         basep.close();
     }
 
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> BuscarOpcion;
     private javax.swing.JButton Eliminar;
@@ -305,7 +271,5 @@ public class curso_consultar extends javax.swing.JFrame {
     private javax.swing.JTextField txtcodigoC;
     // End of variables declaration//GEN-END:variables
 
-    private void Buscar_EstudianteID(ObjectContainer BaseD) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }

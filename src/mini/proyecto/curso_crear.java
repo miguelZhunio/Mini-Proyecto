@@ -15,10 +15,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import static mini.proyecto.Estudiante_Crear.Cerrar_BD;
 
-/**
- *
- * @author PC01
- */
+
 public class curso_crear extends javax.swing.JFrame {
 
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -30,7 +27,8 @@ public class curso_crear extends javax.swing.JFrame {
     String silabo = "";
     String deescripcion = "";
     String id_pro = "";
-    String cod_car= "";     
+    String cod_car= "";   
+    String convertir = String.valueOf(precio);
     public curso_crear() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -250,7 +248,7 @@ public void asignarVariables() {
         nombre_cur = txtnombre.getText();
     }
     if (!txtprecio.getText().isEmpty()) {
-        precio = Double.parseDouble(txtprecio.getText());
+        convertir = txtprecio.getText();
     }
     if (!txtduracion.getText().isEmpty()) {
         duracion = txtduracion.getText();

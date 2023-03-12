@@ -87,7 +87,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="450" y="80" width="110" height="50"/>
+              <AbsoluteConstraints x="240" y="90" width="110" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -174,7 +174,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="220" y="100" width="-1" height="-1"/>
+              <AbsoluteConstraints x="380" y="100" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -191,7 +191,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="290" y="90" width="130" height="30"/>
+              <AbsoluteConstraints x="440" y="90" width="130" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -216,11 +216,12 @@
         <Component class="javax.swing.JComboBox" name="BuscarOpcion">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
+              <StringArray count="5">
                 <StringItem index="0" value="Seleccione una opci&#xf3;n"/>
                 <StringItem index="1" value="Ver todos"/>
                 <StringItem index="2" value="Codigo Curso"/>
-                <StringItem index="3" value="Buscar Parametros"/>
+                <StringItem index="3" value="Nombre"/>
+                <StringItem index="4" value="Duracion"/>
               </StringArray>
             </Property>
           </Properties>

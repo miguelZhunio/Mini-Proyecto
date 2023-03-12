@@ -136,11 +136,11 @@ public class certifica_crear extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
         );
 
         pack();
@@ -211,7 +211,7 @@ public class certifica_crear extends javax.swing.JFrame {
           
         }
         
-        public int Comprobar_Certificado(ObjectContainer base, String codigo) {
+        public static int Comprobar_Certificado(ObjectContainer base, String codigo) {
             ObjectSet buscarCer = base.get(new Certifica(codigo, null, null, null, null));
             return buscarCer.size();
         }
